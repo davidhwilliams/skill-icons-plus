@@ -1,5 +1,5 @@
 const icons = require('./dist/icons.json');
-const iconNameList = [...new Set(Object.keys(icons).map(i => i.split('-')[0]))];
+const iconNameList = [...new Set(Object.keys(icons).map((i) => i.split('-')[0]))];
 const shortNames = {
   js: 'javascript',
   ts: 'typescript',
@@ -44,8 +44,8 @@ const shortNames = {
 };
 const themedIcons = [
   ...Object.keys(icons)
-    .filter(i => i.includes('-light') || i.includes('-dark'))
-    .map(i => i.split('-')[0]),
+    .filter((i) => i.includes('-light') || i.includes('-dark'))
+    .map((i) => i.split('-')[0]),
 ];
 
 const ICONS_PER_LINE = 15;
@@ -53,7 +53,7 @@ const ONE_ICON = 48;
 const SCALE = ONE_ICON / (300 - 44);
 
 function generateSvg(iconNames, perLine) {
-  const iconSvgList = iconNames.map(i => icons[i]);
+  const iconSvgList = iconNames.map((i) => icons[i]);
 
   const length = Math.min(perLine * 300, iconNames.length * 300) - 44;
   const height = Math.ceil(iconSvgList.length / perLine) * 300 - 44;
@@ -66,12 +66,10 @@ function generateSvg(iconNames, perLine) {
       .map(
         (i, index) =>
           `
-        <g transform="translate(${(index % perLine) * 300}, ${
-            Math.floor(index / perLine) * 300
-          })">
+        <g transform="translate(${(index % perLine) * 300}, ${Math.floor(index / perLine) * 300})">
           ${i}
         </g>
-        `
+        `,
       )
       .join(' ')}
   </svg>
@@ -79,14 +77,10 @@ function generateSvg(iconNames, perLine) {
 }
 
 function parseShortNames(names, theme = 'dark') {
-  return names.map(name => {
-    if (iconNameList.includes(name))
-      return name + (themedIcons.includes(name) ? `-${theme}` : '');
+  return names.map((name) => {
+    if (iconNameList.includes(name)) return name + (themedIcons.includes(name) ? `-${theme}` : '');
     else if (name in shortNames)
-      return (
-        shortNames[name] +
-        (themedIcons.includes(shortNames[name]) ? `-${theme}` : '')
-      );
+      return shortNames[name] + (themedIcons.includes(shortNames[name]) ? `-${theme}` : '');
   });
 }
 
@@ -97,8 +91,7 @@ async function handleRequest(request) {
 
   if (path === 'icons') {
     const iconParam = searchParams.get('i') || searchParams.get('icons');
-    if (!iconParam)
-      return new Response("You didn't specify any icons!", { status: 400 });
+    if (!iconParam) return new Response("You didn't specify any icons!", { status: 400 });
     const theme = searchParams.get('t') || searchParams.get('theme');
     if (theme && theme !== 'dark' && theme !== 'light')
       return new Response('Theme must be either "light" or "dark"', {
@@ -140,10 +133,8 @@ async function handleRequest(request) {
   }
 }
 
-addEventListener('fetch', event => {
+addEventListener('fetch', (event) => {
   event.respondWith(
-    handleRequest(event.request).catch(
-      err => new Response(err.stack, { status: 500 })
-    )
+    handleRequest(event.request).catch((err) => new Response(err.stack, { status: 500 })),
   );
 });
