@@ -1,29 +1,8 @@
-# Compiled binary addons (https://nodejs.org/api/addons.html)
-build/Release
-dist/
-
-# Dependency directories
 node_modules/
 
-# Optional npm cache directory
-.npm
-
-# Optional eslint cache
-.eslintcache
-
-# Optional stylelint cache
-.stylelintcache
-
-# dotenv environment variable files
-.env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
-
-# Mac files
 .DS_Store
 
-# IDE files
 .vscode/
 .idea/
+
+dist/
