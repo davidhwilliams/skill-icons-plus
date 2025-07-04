@@ -1,16 +1,20 @@
 {
-  "name": "skill-icons",
-  "version": "1.0.0",
-  "main": "index.js",
+  "name": "skill-icons-plus",
+  "version": "2.0.0",
+  "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "dev": "node build.js",
-    "build": "node build.js",
-    "deploy": "node build.js && gh-pages -d dist",
+    "dev": "tsx build.ts",
+    "build": "tsc && tsx build.ts",
+    "deploy": "tsc && tsx build.ts && gh-pages -d dist",
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "gh-pages": "^6.2.0",
-    "prettier": "^3.3.3"
+    "@types/node": "^24.0.10",
+    "gh-pages": "^6.3.0",
+    "prettier": "^3.6.2",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
   }
 }
