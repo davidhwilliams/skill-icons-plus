@@ -1,58 +1,46 @@
 import { readdirSync, writeFileSync } from 'fs';
 import { basename } from 'path';
 
-const iconsDir = './icons';
-const outputFile = 'ICONS.md';
+const ICONS_DIR = './icons';
+const OUTPUT_FILE = 'ICONS.md';
 
-function generateIconTable(): void {
-  let markdownTable = `| Icon ID | Icon |\n| :----------------: | :---------------------------------------------------: |\n`;
+// Normalizes a filename to a base ID. e.g., 'my-icon-dark.svg' -> 'my-icon'
+const getBaseId = (file: string) =>
+  basename(file, '.svg')
+    .toLowerCase()
+    .replace(/-dark|-light/g, '');
 
-  try {
-    const allSvgFiles = readdirSync(iconsDir).filter((file) => file.endsWith('.svg'));
+try {
+  const svgFiles = readdirSync(ICONS_DIR).filter((file) => file.endsWith('.svg'));
 
-    // Map to store the chosen icon file for each base icon ID - normalizedID => fileName
-    const selectedIcons = new Map<string, string>();
+  // Use reduce to create a map of baseId -> preferred filename, prioritizing dark versions.
+  const preferredIcons = svgFiles.reduce((acc, file) => {
+    const baseId = getBaseId(file);
+    const existingFile = acc.get(baseId);
 
-    for (const file of allSvgFiles) {
-      const iconName = basename(file);
-      const lowerCaseIconName = iconName.toLowerCase();
+    // Keep the dark theme version if available, otherwise keep the existing one.
+    if (!existingFile || (file.includes('-dark') && !existingFile.includes('-dark'))) acc.set(baseId, file);
 
-      // Normalize the icon ID by removing common suffixes and extension
-      const baseIconId = lowerCaseIconName.replace('.svg', '').replace('-dark', '').replace('-light', '');
+    return acc;
+  }, new Map());
 
-      const isCurrentFileDark = lowerCaseIconName.includes('-dark.svg');
+  // Sort the final icon list alphabetically by base ID.
+  const sortedIconFiles = [...preferredIcons.values()].sort((a, b) => getBaseId(a).localeCompare(getBaseId(b)));
 
-      // If this base ID is not in the map, add it otherwise check for dark preference
-      if (!selectedIcons.has(baseIconId)) {
-        selectedIcons.set(baseIconId, iconName);
-      } else {
-        const currentlyStoredFileName = selectedIcons.get(baseIconId)!;
-        const lowerCaseStoredFileName = currentlyStoredFileName.toLowerCase();
-        const isStoredFileDark = lowerCaseStoredFileName.includes('-dark.svg');
-        if (isCurrentFileDark && !isStoredFileDark) selectedIcons.set(baseIconId, iconName);
-      }
-    }
+  // Generate the markdown table rows.
+  const tableRows = sortedIconFiles.map((file) => {
+    const baseId = getBaseId(file);
+    return `| \`${baseId}\` | <img src="./icons/${file}" width="48"> |`;
+  });
 
-    // Get the final list of chosen file names and sort them by their normalized ID
-    const finalIconFiles = Array.from(selectedIcons.values()).sort((a, b) => {
-      const idA = basename(a, '.svg').toLowerCase().replace('-dark', '').replace('-light', '');
-      const idB = basename(b, '.svg').toLowerCase().replace('-dark', '').replace('-light', '');
-      return idA.localeCompare(idB);
-    });
+  const markdownTable = [
+    '| Icon ID            |                         Icon                          |',
+    '| :------------------ | :---------------------------------------------------: |',
+    ...tableRows,
+  ].join('\n');
 
-    for (const file of finalIconFiles) {
-      const iconName = basename(file);
-      // The ID for the table column should also be normalized
-      let displayIconId = iconName.replace('.svg', '').toLowerCase().replace('-dark', '').replace('-light', '');
-
-      markdownTable += `| \`${displayIconId}\` | <img src="./icons/${iconName}" width="48"> |\n`;
-    }
-
-    writeFileSync(outputFile, markdownTable);
-    console.log(`Successfully generated ${outputFile}`);
-  } catch (error) {
-    console.error(`Error generating icon table:`, error);
-  }
+  writeFileSync(OUTPUT_FILE, markdownTable);
+  console.log(`Successfully generated ${OUTPUT_FILE}`);
+} catch (error) {
+  console.error('Error generating icon table:', error);
 }
-
-generateIconTable();
