@@ -5,7 +5,8 @@
 
 <h3 align="center">Powered by Cloudflare Workers ⚡</h3>
 
-<h3>NOTE: To keep icons consistent and to ensure browser support, we don't accept pull requests for icon submissions. If you would like an icon added, please open an issue.<h3>
+<h3>NOTE: To keep icons consistent and to ensure browser support, we don't accept pull requests for icon submissions. If
+you would like an icon added, please open an issue.<h3>
 
 # Docs
 
@@ -25,7 +26,8 @@
 
 Copy and paste the code block below into your readme to add the skills icon element!
 
-Change the `?i=js,html,css` to a list of your skills separated by ","s! You can find a full list of icons [here](#icons-list).
+Change the `?i=js,html,css` to a list of your skills separated by ","s! You can find a full list of
+icons [here](#icons-list).
 
 ```md
 [![My Skills](https://skillicons.dev/icons?i=js,html,css,wasm)](https://skillicons.dev)
@@ -39,7 +41,8 @@ Some icons have a dark and light themed background. You can specify which theme 
 
 This is optional. The default theme is dark.
 
-Change the `&theme=light` to either `dark` or `light`. The theme is the background color, so light theme has a white icon background, and dark has a black-ish.
+Change the `&theme=light` to either `dark` or `light`. The theme is the background color, so light theme has a white
+icon background, and dark has a black-ish.
 
 **Light Theme Example:**
 
@@ -63,7 +66,8 @@ Change the `&perline=3` to any number between 1 and 50.
 
 # Centering Icons
 
-Want to center the icons in your readme? The SVGs are automatically resized, so you can do it the same way you'd normally center an image.
+Want to center the icons in your readme? The SVGs are automatically resized, so you can do it the same way you'd
+normally center an image.
 
 ```html
 <p align="center">
@@ -84,7 +88,7 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 Here's a list of all the icons currently supported. Feel free to open an issue to suggest icons to add!
 
 |      Icon ID       |                         Icon                          |
-| :----------------: | :---------------------------------------------------: |
+|:------------------:|:-----------------------------------------------------:|
 |     `ableton`      |    <img src="./icons/Ableton-Dark.svg" width="48">    |
 |   `activitypub`    |  <img src="./icons/ActivityPub-Dark.svg" width="48">  |
 |      `actix`       |     <img src="./icons/Actix-Dark.svg" width="48">     |
@@ -326,7 +330,8 @@ Here's a list of all the icons currently supported. Feel free to open an issue t
 
 ## 💖 Support the Project
 
-Thank you so much already for using my projects! If you want to go a step further and support my open source work, buy me a coffee:
+Thank you so much already for using my projects! If you want to go a step further and support my open source work, buy
+me a coffee:
 
 <a href='https://ko-fi.com/Q5Q860KQ2' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi1.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
