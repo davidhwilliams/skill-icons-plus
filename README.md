@@ -69,7 +69,6 @@ Want to center the icons in your readme? The SVGs are automatically resized, so 
 normally center an image.
 
 ```html
-
 <div style="text-align: center;">
   <a href="https://skillicons.dev">
     <img src="https://skillicons.dev/icons?i=git,kubernetes,docker,c,vim" />
@@ -88,7 +87,7 @@ normally center an image.
 Here's a list of all the icons currently supported. Feel free to open an issue to suggest icons to add!
 
 | A-L               |                                                       | M-Z                |                                                       |
-|:------------------|:-----------------------------------------------------:|:-------------------|:-----------------------------------------------------:|
+| :---------------- | :---------------------------------------------------: | :----------------- | :---------------------------------------------------: |
 | `ableton`         |    <img src="./icons/Ableton-Dark.svg" width="48">    | `markdown`         |   <img src="./icons/Markdown-Dark.svg" width="48">    |
 | `activitypub`     |  <img src="./icons/ActivityPub-Dark.svg" width="48">  | `mastodon`         |   <img src="./icons/Mastodon-Dark.svg" width="48">    |
 | `actix`           |     <img src="./icons/Actix-Dark.svg" width="48">     | `materialui`       |  <img src="./icons/MaterialUI-Dark.svg" width="48">   |
