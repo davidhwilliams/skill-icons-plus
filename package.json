@@ -5,9 +5,10 @@
   "license": "MIT",
   "scripts": {
     "index": "tsx generate-icon-table.ts && pnpm run format",
-    "dev": "tsx build.ts",
+    "dev": "tsx build.ts && miniflare --watch",
     "build": "tsc && tsx build.ts",
-    "deploy": "tsc && tsx build.ts && gh-pages -d dist",
+    "deploy": "tsx build.ts && gh-pages -d dist",
+    "deploy:cloudflare": "tsx build.ts && wrangler publish",
     "format": "prettier --write ."
   },
   "devDependencies": {
@@ -16,6 +17,7 @@
     "prettier": "^3.6.2",
     "ts-node": "^10.9.2",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wrangler": "^4.36.0"
   }
 }
