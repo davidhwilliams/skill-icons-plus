@@ -4,18 +4,16 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "index": "tsx generate-icon-table.ts && pnpm run format",
-    "dev": "tsx build.ts",
-    "build": "tsc && tsx build.ts",
-    "deploy": "tsc && tsx build.ts && gh-pages -d dist",
+    "index": "node generate-icon-table.ts && pnpm format",
+    "dev": "node build.ts",
+    "build": "tsc && node build.ts",
+    "deploy": "tsc && node build.ts && gh-pages -d dist",
     "format": "prettier --write ."
   },
   "devDependencies": {
-    "@types/node": "^22.16.3",
+    "@types/node": "^24.11.0",
     "gh-pages": "^6.3.0",
-    "prettier": "^3.6.2",
-    "ts-node": "^10.9.2",
-    "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "prettier": "^3.8.1",
+    "typescript": "^5.9.3"
   }
 }
