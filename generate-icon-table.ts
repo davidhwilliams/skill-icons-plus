@@ -28,31 +28,42 @@ try {
   // Sort the final icon list alphabetically by base ID.
   const sortedIconFiles = [...preferredIcons.values()].sort((a, b) => getBaseId(a).localeCompare(getBaseId(b)));
 
-  // --- Split output into two columns ---
+  // --- Split output into three columns ---
 
-  // 1. Filter icons into two groups based on their starting letter.
-  const aToMFiles = sortedIconFiles.filter((file) => getBaseId(file) <= 'm');
-  const nToZFiles = sortedIconFiles.filter((file) => getBaseId(file) > 'm');
+  // 1. Calculate chunk size to distribute icons across three columns.
+  const totalIcons = sortedIconFiles.length;
+  const colSize = Math.ceil(totalIcons / 3);
 
-  // 2. Build the markdown rows, combining both lists side-by-side.
+  const col1 = sortedIconFiles.slice(0, colSize);
+  const col2 = sortedIconFiles.slice(colSize, colSize * 2);
+  const col3 = sortedIconFiles.slice(colSize * 2);
+
+  // 2. Build the markdown rows, combining all three lists side-by-side.
   const tableRows = [];
-  const rowCount = Math.max(aToMFiles.length, nToZFiles.length);
+  const rowCount = Math.max(col1.length, col2.length, col3.length);
 
   for (let i = 0; i < rowCount; i++) {
-    const fileA = aToMFiles[i];
-    const fileN = nToZFiles[i];
+    const f1 = col1[i];
+    const f2 = col2[i];
+    const f3 = col3[i];
 
-    // Prepare cell content, using empty strings for blank cells.
-    const idA = fileA ? `\`${getBaseId(fileA)}\`` : '';
-    const iconA = fileA ? `<img src="./icons/${fileA}" width="48">` : '';
-    const idN = fileN ? `\`${getBaseId(fileN)}\`` : '';
-    const iconN = fileN ? `<img src="./icons/${fileN}" width="48">` : '';
+    const cell = (f: string | undefined) => ({
+      id: f ? `\`${getBaseId(f)}\`` : '',
+      img: f ? `<img src="./icons/${f}" width="48">` : '',
+    });
 
-    tableRows.push(`| ${idA} | ${iconA} | ${idN} | ${iconN} |`);
+    const c1 = cell(f1),
+      c2 = cell(f2),
+      c3 = cell(f3);
+    tableRows.push(`| ${c1.id} | ${c1.img} | ${c2.id} | ${c2.img} | ${c3.id} | ${c3.img} |`);
   }
 
-  // 3. Assemble the final markdown table with a 4-column header.
-  const markdownTable = ['| A-L |    | M-Z |    |', '| :-- | :--: | :-- | :--: |', ...tableRows].join('\n');
+  // 3. Assemble the final markdown table with a 6-column header.
+  const markdownTable = [
+    '| Name | Icon | Name | Icon | Name | Icon |',
+    '| :-- | :--: | :-- | :--: | :-- | :--: |',
+    ...tableRows,
+  ].join('\n');
 
   writeFileSync(OUTPUT_FILE, markdownTable);
   console.log(`Successfully generated ${OUTPUT_FILE}`);
